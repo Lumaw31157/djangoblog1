@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+    {% for post in page_obj %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text text-muted">{{ post.excerpt }}</p>
+                <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
+</div>
+
+<nav class="mb-4">
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}">Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}">Next</a>
+    {% endif %}
+</nav>
+
+<hr>
+
+<h4>Categories</h4>
+<ul class="list-unstyled">
+    <li><a href="{% url 'home' %}">All</a></li>
+    {% for category in categories %}
+    <li>
+        <a href="?category={{ category.slug }}">{{ category.name }} ({{ category.post_count }})</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
