@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark px-3">
-        <a class="navbar-brand" href="{% url 'home' %}">DjangoBlog</a>
-    </nav>
+    <nav class="navbar navbar-dark bg-dark px-3 d-flex justify-content-between">
+    <a class="navbar-brand" href="{% url 'home' %}">DjangoBlog</a>
+    <a href="/posts/new/" class="btn btn-success">New Post</a>
+</nav>
     <div class="container mt-4">
         {% block content %}{% endblock %}
     </div>

@@ -22,6 +22,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
+    cover_image = models.ImageField(upload_to="post_covers/", blank=True, null=True)
     excerpt = models.CharField(max_length=250, blank=True)
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='posts')
@@ -29,7 +30,7 @@ class Post(models.Model):
     tags = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    
     def save(self , *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)

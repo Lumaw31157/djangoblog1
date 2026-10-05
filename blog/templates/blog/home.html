@@ -6,7 +6,10 @@
     {% for post in page_obj %}
     <div class="col">
         <div class="card h-100 shadow-sm">
-            <div class="card-body">
+    {% if post.cover_image %}
+      <img src="{{ post.cover_image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+    {% endif %}
+    <div class="card-body">
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text text-muted">{{ post.excerpt }}</p>
                 <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read more</a>
