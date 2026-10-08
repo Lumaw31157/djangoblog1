@@ -1,11 +1,15 @@
 from django.urls import path
 from . import views
-from .views import PostCreateView, PostUpdateView, PostDeleteView
+from .views import (
+    PostCreateView, PostUpdateView, PostDeleteView, RegisterView, MyPostsView
+)
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("my-posts/", MyPostsView.as_view(), name="my_posts"),
+    path("register/", RegisterView.as_view(), name="register"),
     path("posts/new/", PostCreateView.as_view(), name="post_create"),
     path("posts/<slug:slug>/edit/", PostUpdateView.as_view(), name="post_update"),
     path("posts/<slug:slug>/delete/", PostDeleteView.as_view(), name="post_delete"),
